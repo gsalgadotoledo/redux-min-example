@@ -2,22 +2,21 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 
-// Aqui se renderiza por primera vez el componente
+// Render the component for the first time
 const App = (props) => <h1>Hello... {props.count} </h1>
 ReactDOM.render(<App count="0" />, document.getElementById('root'));
 
-// STATE: Son los datos de la aplicacion
+// STATE: The application data
 
-// Aqui se declara como se debe modificar 
-// el STATE cada vez que invocan una accion
+// In the reducer we define how the state will be changed
 const reducer = (state, action) => {
-  if (action.type === 'SUMAR') {
+  if (action.type === 'ADD') {
     return state + action.count;
   }
   return state;
 };
 
-// El store es donde se definen los reducers, solo pasa solo una vez
+// We define the store, this happends just when you load the app
 const store = createStore(reducer, 0);
 
 // Cada vez que alguien ahga un dispatch se ejecua el suscribe
@@ -27,5 +26,5 @@ store.subscribe(() => {
 });
 
 setInterval(() => {
-  store.dispatch({ type: 'SUMAR', count: 1 });
+  store.dispatch({ type: 'ADD', count: 1 });
 }, 1000)
